@@ -9,7 +9,9 @@ RUN curl -fsSL https://packages.adoptium.net/artifactory/api/gpg/key/public | gp
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Install Node.js 24.12.0 (ships with npm 11.6.2)
-RUN curl -fsSL https://nodejs.org/dist/v24.12.0/node-v24.12.0-linux-x64.tar.xz | tar -xJ -C /usr/local --strip-components=1 && \
+RUN ARCH=$(dpkg --print-architecture) && \
+    if [ "$ARCH" = "amd64" ]; then NODE_ARCH="x64"; elif [ "$ARCH" = "arm64" ]; then NODE_ARCH="arm64"; else echo "Unsupported arch: $ARCH" && exit 1; fi && \
+    curl -fsSL "https://nodejs.org/dist/v24.12.0/node-v24.12.0-linux-${NODE_ARCH}.tar.xz" | tar -xJ -C /usr/local --strip-components=1 && \
     node --version && npm --version
 
 USER claude

@@ -8,11 +8,15 @@ RUN apt-get update && \
         jq \
         openssl \
         ca-certificates \
-        gnupg && \
+        gnupg \
+        xz-utils && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Install Claude Code standalone binary
-RUN curl -fsSL https://claude.ai/install.sh | sh
+# Install Claude Code standalone binary and make it available system-wide
+RUN curl -fsSL https://claude.ai/install.sh | bash && \
+    cp /root/.local/share/claude/versions/* /usr/local/bin/claude && \
+    chmod +x /usr/local/bin/claude && \
+    rm -rf /root/.local/share/claude /root/.local/bin/claude
 
 # Create non-root user
 RUN useradd -m -s /bin/bash claude
