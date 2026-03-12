@@ -14,9 +14,9 @@ RUN apt-get update && \
 
 # Install Claude Code standalone binary and make it available system-wide
 RUN curl -fsSL https://claude.ai/install.sh | bash && \
-    cp /root/.local/share/claude/versions/* /usr/local/bin/claude && \
+    mv /root/.local/share/claude/versions/* /usr/local/bin/claude && \
     chmod +x /usr/local/bin/claude && \
-    rm -rf /root/.local/share/claude /root/.local/bin/claude
+    rm -rf /root/.local
 
 # Create non-root user
 RUN useradd -m -s /bin/bash claude
