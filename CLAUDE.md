@@ -24,7 +24,7 @@ docker build -t claudetainer/java-node:latest -f images/java-node/Dockerfile .
 
 - **Base image** (`claudetainer/base`): Debian bookworm-slim, system deps (git, curl, jq, openssl, xz-utils), Claude Code standalone binary, non-root `claude` user, entrypoint scripts.
 - **Variant images** extend base with language runtimes. They `FROM claudetainer/base:latest`, switch to `USER root` for installs, then back to `USER claude`.
-- **Entrypoint** handles: env validation, GitHub auth (App or token), git clone, branch checkout/creation, Claude Code launch with `--dangerously-skip-permissions`.
+- **Entrypoint** handles: env validation (requires `ANTHROPIC_API_KEY` or `CLAUDE_CODE_OAUTH_TOKEN`), GitHub auth (App or token), git clone, branch checkout/creation, Claude Code launch with `--dangerously-skip-permissions`.
 - Claude Code handles git operations (commit, push) via prompt or project CLAUDE.md instructions.
 
 ## Conventions

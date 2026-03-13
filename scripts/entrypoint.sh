@@ -4,8 +4,8 @@ set -euo pipefail
 SCRIPTS_DIR="$(cd "$(dirname "$0")" && pwd)"
 
 # --- Validate required environment variables ---
-if [[ -z "${ANTHROPIC_API_KEY:-}" ]]; then
-  echo "Error: ANTHROPIC_API_KEY is required but not set." >&2
+if [[ -z "${ANTHROPIC_API_KEY:-}" && -z "${CLAUDE_CODE_OAUTH_TOKEN:-}" ]]; then
+  echo "Error: ANTHROPIC_API_KEY or CLAUDE_CODE_OAUTH_TOKEN is required but neither is set." >&2
   exit 1
 fi
 
