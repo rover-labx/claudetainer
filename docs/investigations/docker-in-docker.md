@@ -143,9 +143,27 @@ dangerous_bind {
     startswith(bind, "/:")
 }
 
+# Container lifecycle (start, stop, kill, wait, remove)
 allow {
     input.Method == "POST"
     regex.match("^/containers/[a-zA-Z0-9]+/(start|stop|kill|wait|remove)$", input.Path)
+}
+
+# Image pull (required by Testcontainers)
+allow {
+    input.Method == "POST"
+    input.Path == "/images/create"
+}
+
+# Network create/remove (required by Testcontainers)
+allow {
+    input.Method == "POST"
+    regex.match("^/networks(/create|/[a-zA-Z0-9]+/disconnect)?$", input.Path)
+}
+
+allow {
+    input.Method == "DELETE"
+    regex.match("^/networks/[a-zA-Z0-9]+$", input.Path)
 }
 ```
 
