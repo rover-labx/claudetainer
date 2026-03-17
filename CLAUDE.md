@@ -9,15 +9,18 @@ images/base/Dockerfile       - Base image: Debian slim + Claude Code standalone
 images/java-node/Dockerfile  - Variant: Java 21 + Node 24.12.0
 scripts/entrypoint.sh        - Shared entrypoint: auth, clone, branch, run
 scripts/github-auth.sh       - GitHub App token generation (JWT + installation token)
+docker-bake.hcl              - Docker Bake build definitions (targets, tags, dependencies)
+.github/workflows/           - CI/CD: build.yml (PR), release.yml (push), build-images.yml (reusable)
 ```
 
 ## Building
 
-All Docker builds use the repo root as context:
+Images are built with [Docker Bake](https://docs.docker.com/build/bake/). Targets and tags are defined in `docker-bake.hcl`.
 
 ```bash
-docker build -t claudetainer/base:latest -f images/base/Dockerfile .
-docker build -t claudetainer/java-node:latest -f images/java-node/Dockerfile .
+docker buildx bake --load        # Build all images
+docker buildx bake base --load   # Build a single target
+docker buildx bake --print       # Preview resolved tags
 ```
 
 ## Architecture
@@ -31,4 +34,4 @@ docker build -t claudetainer/java-node:latest -f images/java-node/Dockerfile .
 
 - Commit format: `<scope> (<type>): <description>` (see `docs/commit-conventions.md`)
 - Multi-arch support: Node.js downloads detect amd64/arm64 via `dpkg --print-architecture`
-- Image naming: `claudetainer/<variant>:<tag>`
+- Image naming: `ghcr.io/rover-labx/claudetainer-<variant>:<tag>`

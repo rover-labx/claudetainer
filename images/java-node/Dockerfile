@@ -1,4 +1,5 @@
-FROM claudetainer/base:latest
+ARG BASE_IMAGE=claudetainer/base:latest
+FROM ${BASE_IMAGE}
 
 USER root
 

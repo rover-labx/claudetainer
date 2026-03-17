@@ -1,0 +1,15 @@
+name: Release
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+
+jobs:
+  release:
+    uses: ./.github/workflows/build-images.yml
+    with:
+      push: true
+    permissions:
+      contents: read
+      packages: write

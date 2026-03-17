@@ -1,0 +1,11 @@
+name: Build
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    uses: ./.github/workflows/build-images.yml
+    permissions:
+      contents: read

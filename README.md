@@ -9,13 +9,24 @@ Docker images for running Claude Code autonomously on GitHub repositories.
 | `claudetainer/base` | Debian slim, Claude Code, git, entrypoint scripts |
 | `claudetainer/java-node` | Base + Java 21 (Temurin) + Node 24.12.0 + npm 11.6.2 |
 
+## Building
+
+Images are built with [Docker Bake](https://docs.docker.com/build/bake/). Targets and tags are defined in `docker-bake.hcl`.
+
+```bash
+# Build all images
+docker buildx bake --load
+
+# Build a single target
+docker buildx bake base --load
+
+# Preview resolved tags without building
+docker buildx bake --print
+```
+
 ## Quick Start
 
 ```bash
-# Build
-docker build -t claudetainer/base:latest -f images/base/Dockerfile .
-docker build -t claudetainer/java-node:latest -f images/java-node/Dockerfile .
-
 # Run with API key + GitHub App auth
 docker run --rm \
   -e ANTHROPIC_API_KEY="sk-ant-..." \
