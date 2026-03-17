@@ -16,6 +16,10 @@ group "default" {
 
 target "_common" {
   context = "."
+  labels = {
+    "org.opencontainers.image.source" = "https://github.com/rover-labx/claudetainer"
+    "org.opencontainers.image.description" = "Docker images for autonomous Claude Code execution"
+  }
 }
 
 target "base" {
