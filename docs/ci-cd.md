@@ -10,21 +10,21 @@ Build definitions (targets, tags, dependencies, labels) live in `docker-bake.hcl
 
 ```
 .github/workflows/
-  build.yml          - PR validation: builds all images without pushing
+  build.yml          - Build validation: builds all images without pushing (PR + main)
   release.yml        - Release: builds and pushes to ghcr.io
   build-images.yml   - Reusable workflow called by both
 ```
 
-### Build (PR validation)
+### Build
 
-- **Trigger**: pull request against `main`
+- **Trigger**: pull request against `main` and push to `main`
 - **What it does**: builds all images using `docker buildx bake` to validate Dockerfiles and scripts compile correctly
 - **Push**: no
 - **Multi-arch**: no (native only, saves CI time)
 
 ### Release
 
-- **Trigger**: push to `main` or `v*` tag
+- **Trigger**: `v*` tag push only
 - **What it does**: builds all images for `linux/amd64` and `linux/arm64`, pushes to `ghcr.io`
 - **Push**: yes
 - **Auth**: `GITHUB_TOKEN` with `packages: write` (provided automatically by GitHub Actions)
