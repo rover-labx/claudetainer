@@ -6,10 +6,6 @@ variable "VERSION" {
   default = ""
 }
 
-variable "SHA" {
-  default = ""
-}
-
 group "default" {
   targets = ["base", "java-node"]
 }
@@ -27,8 +23,7 @@ target "base" {
   dockerfile = "images/base/Dockerfile"
   tags = concat(
     ["${REGISTRY}/claudetainer-base:latest"],
-    VERSION != "" ? ["${REGISTRY}/claudetainer-base:${VERSION}"] : [],
-    SHA != "" ? ["${REGISTRY}/claudetainer-base:sha-${SHA}"] : []
+    VERSION != "" ? ["${REGISTRY}/claudetainer-base:${VERSION}"] : []
   )
 }
 
@@ -49,7 +44,6 @@ target "java-node" {
     VERSION != "" ? [
       "${REGISTRY}/claudetainer-java-node:${VERSION}",
       "${REGISTRY}/claudetainer-java-node:java21-node24-${VERSION}",
-    ] : [],
-    SHA != "" ? ["${REGISTRY}/claudetainer-java-node:sha-${SHA}"] : []
+    ] : []
   )
 }
