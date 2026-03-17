@@ -6,20 +6,9 @@ on:
     tags: ['v*']
 
 jobs:
-  base:
+  release:
     uses: ./.github/workflows/build-image.yml
     with:
-      target: base
-      push: true
-    permissions:
-      contents: read
-      packages: write
-
-  java-node:
-    needs: base
-    uses: ./.github/workflows/build-image.yml
-    with:
-      target: java-node
       push: true
     permissions:
       contents: read

@@ -1,12 +1,8 @@
-name: Build Image
+name: Build Images
 
 on:
   workflow_call:
     inputs:
-      target:
-        description: "Bake target to build"
-        required: true
-        type: string
       push:
         description: "Push images to registry"
         required: false
@@ -14,7 +10,7 @@ on:
         default: false
 
 jobs:
-  build:
+  bake:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -39,7 +35,6 @@ jobs:
 
       - uses: docker/bake-action@v6
         with:
-          targets: ${{ inputs.target }}
           push: ${{ inputs.push }}
           set: |
             *.platform=linux/amd64,linux/arm64

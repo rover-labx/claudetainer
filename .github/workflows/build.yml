@@ -5,19 +5,7 @@ on:
     branches: [main]
 
 jobs:
-  base:
+  build:
     uses: ./.github/workflows/build-image.yml
-    with:
-      target: base
     permissions:
       contents: read
-      packages: read
-
-  java-node:
-    needs: base
-    uses: ./.github/workflows/build-image.yml
-    with:
-      target: java-node
-    permissions:
-      contents: read
-      packages: read
