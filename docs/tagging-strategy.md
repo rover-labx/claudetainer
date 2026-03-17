@@ -51,8 +51,9 @@ ghcr.io/rover-labx/claudetainer-java-node:sha-a14638f
 
 | Trigger | Tags produced |
 |---------|---------------|
-| Push to `main` | `latest`, `sha-<commit>`, tool stack |
 | Push `v1.0.0` tag | `latest`, `sha-<commit>`, tool stack, `1.0.0`, tool stack + `1.0.0` |
+
+Images are only pushed to the registry on `v*` tag pushes. Pushes to `main` only validate the build.
 
 ### Example for `java-node` on tag `v1.0.0` at commit `a14638f`
 
