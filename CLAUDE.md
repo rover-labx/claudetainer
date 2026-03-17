@@ -10,7 +10,7 @@ images/java-node/Dockerfile  - Variant: Java 21 + Node 24.12.0
 scripts/entrypoint.sh        - Shared entrypoint: auth, clone, branch, run
 scripts/github-auth.sh       - GitHub App token generation (JWT + installation token)
 docker-bake.hcl              - Docker Bake build definitions (targets, tags, dependencies)
-.github/workflows/           - CI/CD: build.yml (PR), release.yml (push), build-image.yml (reusable)
+.github/workflows/           - CI/CD: build.yml (PR), release.yml (push), build-images.yml (reusable)
 ```
 
 ## Building
