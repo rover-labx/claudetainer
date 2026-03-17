@@ -69,7 +69,6 @@ docker buildx bake --print
 |----------|---------|-------------|-------------|
 | `REGISTRY` | `ghcr.io/rover-labx` | `ghcr.io/${{ github.repository_owner }}` | Registry prefix for image tags |
 | `VERSION` | `""` (empty) | Extracted from `v*` git tag | Semver version (e.g. `1.0.0`) |
-| `SHA` | `""` (empty) | Short commit SHA | Commit hash for traceability |
 
 ## Registry
 

@@ -18,7 +18,6 @@ jobs:
       - name: Set build variables
         id: vars
         run: |
-          echo "sha=$(echo $GITHUB_SHA | head -c 7)" >> $GITHUB_OUTPUT
           if [[ "$GITHUB_REF" == refs/tags/v* ]]; then
             echo "version=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
           fi
@@ -42,4 +41,3 @@ jobs:
         env:
           REGISTRY: ghcr.io/${{ github.repository_owner }}
           VERSION: ${{ steps.vars.outputs.version }}
-          SHA: ${{ steps.vars.outputs.sha }}

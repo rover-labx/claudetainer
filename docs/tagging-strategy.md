@@ -13,7 +13,7 @@ Images follow the pattern `ghcr.io/rover-labx/claudetainer-<variant>:<tag>`.
 
 ### `latest`
 
-Floating tag, updated on every push to `main`. Always points to the most recent build.
+Floating tag, updated on every release. Always points to the most recent build.
 
 ```
 ghcr.io/rover-labx/claudetainer-base:latest
@@ -38,31 +38,21 @@ ghcr.io/rover-labx/claudetainer-java-node:1.0.0
 ghcr.io/rover-labx/claudetainer-java-node:java21-node24-1.0.0
 ```
 
-### Commit SHA
-
-Short commit hash for traceability. Immutable — each build produces a unique SHA tag.
-
-```
-ghcr.io/rover-labx/claudetainer-base:sha-a14638f
-ghcr.io/rover-labx/claudetainer-java-node:sha-a14638f
-```
-
 ## Full Tag Matrix
 
 | Trigger | Tags produced |
 |---------|---------------|
-| Push `v1.0.0` tag | `latest`, `sha-<commit>`, tool stack, `1.0.0`, tool stack + `1.0.0` |
+| Push `v1.0.0` tag | `latest`, tool stack, `1.0.0`, tool stack + `1.0.0` |
 
 Images are only pushed to the registry on `v*` tag pushes. Pushes to `main` only validate the build.
 
-### Example for `java-node` on tag `v1.0.0` at commit `a14638f`
+### Example for `java-node` on tag `v1.0.0`
 
 ```
 ghcr.io/rover-labx/claudetainer-java-node:latest
 ghcr.io/rover-labx/claudetainer-java-node:java21-node24
 ghcr.io/rover-labx/claudetainer-java-node:1.0.0
 ghcr.io/rover-labx/claudetainer-java-node:java21-node24-1.0.0
-ghcr.io/rover-labx/claudetainer-java-node:sha-a14638f
 ```
 
 ## Which Tag to Use
@@ -72,7 +62,6 @@ ghcr.io/rover-labx/claudetainer-java-node:sha-a14638f
 | Always get the latest build | `latest` |
 | Pin to a specific tool stack | `java21-node24` |
 | Pin to an exact release | `java21-node24-1.0.0` or `1.0.0` |
-| Trace back to a specific commit | `sha-a14638f` |
 
 ## When Tool Versions Change
 
