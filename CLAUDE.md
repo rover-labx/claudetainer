@@ -27,7 +27,8 @@ docker buildx bake --print       # Preview resolved tags
 
 - **Base image** (`claudetainer/base`): Debian bookworm-slim, system deps (git, curl, jq, openssl, xz-utils), Claude Code standalone binary, non-root `claude` user, entrypoint scripts.
 - **Variant images** extend base with language runtimes. They `FROM claudetainer/base:latest`, switch to `USER root` for installs, then back to `USER claude`.
-- **Entrypoint** handles: env validation (requires `ANTHROPIC_API_KEY` or `CLAUDE_CODE_OAUTH_TOKEN`), GitHub auth (App or token), git clone, branch checkout/creation, Claude Code launch with `--dangerously-skip-permissions`.
+- **Entrypoint** handles: reading secrets from `/run/secrets/`, GitHub auth (App or token), git clone, branch checkout/creation, Claude Code launch with `--dangerously-skip-permissions`.
+- **Secrets** are injected via docker compose `secrets:` (mounted as files at `/run/secrets/<name>`). The entrypoint reads each file and exports as env vars for downstream tools. Expected secret files: `anthropic_api_key` or `claude_code_oauth_token`, plus either `github_token` or the GitHub App trio (`github_app_id`, `github_app_private_key`, `github_app_installation_id`). Non-secret config (`GITHUB_REPOSITORY`, `GITHUB_BRANCH`, `CLAUDE_PROMPT`) is still passed via env vars.
 - Claude Code handles git operations (commit, push) via prompt or project CLAUDE.md instructions.
 
 ## Conventions
