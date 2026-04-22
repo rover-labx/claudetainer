@@ -18,9 +18,10 @@ fi
 echo "Resolving GitHub authentication..."
 TOKEN=$("${SCRIPTS_DIR}/github-auth.sh")
 
-# --- Configure git ---
+# --- Configure git and gh CLI ---
 echo "Configuring git..."
 git config --global credential.helper '!f() { echo "password=${TOKEN}"; }; f'
+export GH_TOKEN="${TOKEN}"
 git config --global user.email "claude[bot]@users.noreply.github.com"
 git config --global user.name "Claude (claudetainer)"
 
