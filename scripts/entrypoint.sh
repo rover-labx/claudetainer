@@ -54,4 +54,4 @@ fi
 
 # --- Run Claude Code ---
 echo "Launching Claude Code..."
-exec claude --dangerously-skip-permissions -p "$PROMPT"
+exec claude --dangerously-skip-permissions ${CLAUDE_MODEL:+--model "$CLAUDE_MODEL"} -p "$PROMPT"
