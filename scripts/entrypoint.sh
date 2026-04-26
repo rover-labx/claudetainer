@@ -22,7 +22,6 @@ TOKEN=$("${SCRIPTS_DIR}/github-auth.sh")
 echo "Configuring git..."
 git config --global credential.helper '!f() { echo "password=${TOKEN}"; }; f'
 export GH_TOKEN="${TOKEN}"
-echo "${TOKEN}" | gh auth login --with-token
 git config --global user.email "claude[bot]@users.noreply.github.com"
 git config --global user.name "Claude (claudetainer)"
 
