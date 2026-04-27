@@ -30,7 +30,8 @@ RUN useradd -m -s /bin/bash claude
 # Copy scripts from build context (repo root)
 COPY scripts/entrypoint.sh /usr/local/bin/entrypoint.sh
 COPY scripts/github-auth.sh /usr/local/bin/github-auth.sh
-RUN chmod +x /usr/local/bin/entrypoint.sh /usr/local/bin/github-auth.sh
+COPY scripts/log-formatter.sh /usr/local/bin/log-formatter.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh /usr/local/bin/github-auth.sh /usr/local/bin/log-formatter.sh
 
 # Create workspace directory
 RUN mkdir -p /workspace && chown claude:claude /workspace

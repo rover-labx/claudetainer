@@ -56,5 +56,6 @@ fi
 # stream-json emits one JSON event per line as each action happens
 # (tool calls, text responses, tool results), giving real-time visibility.
 echo "Launching Claude Code..."
-exec claude --dangerously-skip-permissions ${CLAUDE_MODEL:+--model "$CLAUDE_MODEL"} \
-  --output-format stream-json --verbose -p "$PROMPT"
+claude --dangerously-skip-permissions ${CLAUDE_MODEL:+--model "$CLAUDE_MODEL"} \
+  --output-format stream-json --verbose -p "$PROMPT" | log-formatter.sh
+exit "${PIPESTATUS[0]}"
