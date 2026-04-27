@@ -53,7 +53,8 @@ else
 fi
 
 # --- Run Claude Code ---
-# unbuffer gives Claude a fake PTY so it line-buffers its stdout,
-# making output stream in real-time rather than flushing only on exit.
+# stream-json emits one JSON event per line as each action happens
+# (tool calls, text responses, tool results), giving real-time visibility.
 echo "Launching Claude Code..."
-exec unbuffer claude --dangerously-skip-permissions ${CLAUDE_MODEL:+--model "$CLAUDE_MODEL"} -p "$PROMPT"
+exec claude --dangerously-skip-permissions ${CLAUDE_MODEL:+--model "$CLAUDE_MODEL"} \
+  --output-format stream-json -p "$PROMPT"
