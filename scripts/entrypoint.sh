@@ -57,4 +57,4 @@ fi
 # (tool calls, text responses, tool results), giving real-time visibility.
 echo "Launching Claude Code..."
 exec claude --dangerously-skip-permissions ${CLAUDE_MODEL:+--model "$CLAUDE_MODEL"} \
-  --output-format stream-json -p "$PROMPT"
+  --output-format stream-json --verbose -p "$PROMPT"
