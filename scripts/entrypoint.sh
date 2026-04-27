@@ -56,4 +56,4 @@ fi
 # unbuffer gives Claude a fake PTY so it line-buffers its stdout,
 # making output stream in real-time rather than flushing only on exit.
 echo "Launching Claude Code..."
-exec unbuffer -p claude --dangerously-skip-permissions ${CLAUDE_MODEL:+--model "$CLAUDE_MODEL"} -p "$PROMPT"
+exec unbuffer claude --dangerously-skip-permissions ${CLAUDE_MODEL:+--model "$CLAUDE_MODEL"} -p "$PROMPT"
