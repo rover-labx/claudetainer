@@ -8,7 +8,8 @@ for secret_name in ANTHROPIC_API_KEY CLAUDE_CODE_OAUTH_TOKEN GITHUB_APP_ID GITHU
   if [[ -z "${!secret_name:-}" ]]; then
     secret_file="/run/secrets/$(echo "$secret_name" | tr '[:upper:]' '[:lower:]')"
     if [[ -f "$secret_file" ]]; then
-      export "$secret_name=$(cat "$secret_file")"
+      val=$(cat "$secret_file")
+      export "$secret_name=$val"
     fi
   fi
 done
