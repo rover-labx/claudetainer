@@ -3,6 +3,16 @@ set -euo pipefail
 
 SCRIPTS_DIR="$(cd "$(dirname "$0")" && pwd)"
 
+# --- Load credentials from Docker secret files (if not already in env) ---
+for secret_name in ANTHROPIC_API_KEY CLAUDE_CODE_OAUTH_TOKEN GITHUB_APP_ID GITHUB_APP_PRIVATE_KEY GITHUB_APP_INSTALLATION_ID; do
+  if [[ -z "${!secret_name:-}" ]]; then
+    secret_file="/run/secrets/$(echo "$secret_name" | tr '[:upper:]' '[:lower:]')"
+    if [[ -f "$secret_file" ]]; then
+      export "$secret_name=$(cat "$secret_file")"
+    fi
+  fi
+done
+
 # --- Validate required environment variables ---
 if [[ -z "${ANTHROPIC_API_KEY:-}" && -z "${CLAUDE_CODE_OAUTH_TOKEN:-}" ]]; then
   echo "Error: ANTHROPIC_API_KEY or CLAUDE_CODE_OAUTH_TOKEN is required but neither is set." >&2
