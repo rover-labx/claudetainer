@@ -9,6 +9,7 @@ RUN apt-get update && \
         openssl \
         ca-certificates \
         gnupg \
+        procps \
         xz-utils && \
     curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg \
         -o /usr/share/keyrings/githubcli-archive-keyring.gpg && \
