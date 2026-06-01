@@ -15,6 +15,10 @@ RUN ARCH=$(dpkg --print-architecture) && \
     curl -fsSL "https://nodejs.org/dist/v24.12.0/node-v24.12.0-linux-${NODE_ARCH}.tar.xz" | tar -xJ -C /usr/local --strip-components=1 && \
     node --version && npm --version
 
+# Pre-create the Gradle cache dir so a named-volume mount inherits claude ownership
+# (Docker initializes empty volume roots from the image's mountpoint perms).
+RUN mkdir -p /home/claude/.gradle && chown claude:claude /home/claude/.gradle
+
 USER claude
 
 WORKDIR /workspace
